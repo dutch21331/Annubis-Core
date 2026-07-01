@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Annubis ProdCast - بوت برودكاست احترافي</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cairo', sans-serif; background: #0a0a0f; color: #fff; overflow-x: hidden; }
+    ::selection { background: #5865F2; color: #fff; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: #5865F2; border-radius: 4px; }
+
+    /* Particles BG */
+    #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10,10,15,0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(88,101,242,0.1);
+      padding: 16px 40px; display: flex; justify-content: space-between; align-items: center;
+    }
+    header .logo { font-size: 22px; font-weight: 900; background: linear-gradient(135deg, #5865F2, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    header nav a { color: #aaa; text-decoration: none; margin: 0 12px; font-size: 14px; font-weight: 600; transition: 0.3s; }
+    header nav a:hover { color: #5865F2; }
+
+    /* Hero */
+    .hero {
+      position: relative; z-index: 1; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      padding: 120px 20px 60px;
+    }
+    .hero .badge {
+      background: rgba(88,101,242,0.15); border: 1px solid rgba(88,101,242,0.3);
+      padding: 8px 24px; border-radius: 50px; font-size: 13px; color: #8b9aff; margin-bottom: 24px;
+    }
+    .hero h1 { font-size: 56px; font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
+    .hero h1 span { background: linear-gradient(135deg, #5865F2, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 18px; color: #888; max-width: 600px; line-height: 1.8; margin-bottom: 32px; }
+    .hero .buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      padding: 14px 36px; border-radius: 12px; font-size: 15px; font-weight: 700;
+      text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; font-family: 'Cairo', sans-serif;
+    }
+    .btn-primary { background: #5865F2; color: #fff; }
+    .btn-primary:hover { background: #4752c4; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(88,101,242,0.3); }
+    .btn-outline { border: 2px solid #5865F2; color: #fff; }
+    .btn-outline:hover { background: rgba(88,101,242,0.1); transform: translateY(-2px); }
+    .btn-discord { background: #5865F2; color: #fff; }
+
+    /* Stats */
+    .stats {
+      position: relative; z-index: 1; display: flex; justify-content: center; gap: 60px;
+      padding: 40px 20px 80px; flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-item .num { font-size: 40px; font-weight: 900; background: linear-gradient(135deg, #5865F2, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-item .label { font-size: 14px; color: #666; margin-top: 4px; }
+
+    /* Features */
+    .features { position: relative; z-index: 1; padding: 80px 20px; }
+    .section-title { text-align: center; font-size: 36px; font-weight: 900; margin-bottom: 8px; }
+    .section-sub { text-align: center; color: #666; margin-bottom: 60px; font-size: 16px; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 32px; transition: all 0.3s;
+    }
+    .feature-card:hover { border-color: rgba(88,101,242,0.3); transform: translateY(-4px); background: rgba(88,101,242,0.05); }
+    .feature-card .icon { font-size: 36px; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 18px; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: #888; line-height: 1.7; }
+
+    /* Pricing */
+    .pricing { position: relative; z-index: 1; padding: 80px 20px; }
+    .pricing-grid {
+      display: flex; justify-content: center; gap: 24px;
+      max-width: 700px; margin: 0 auto; flex-wrap: wrap;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 40px 32px; text-align: center;
+      flex: 1; min-width: 260px; max-width: 320px; transition: all 0.3s;
+    }
+    .pricing-card.featured {
+      border-color: #5865F2; background: rgba(88,101,242,0.08);
+      transform: scale(1.05);
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-card.featured:hover { transform: scale(1.05) translateY(-4px); }
+    .pricing-card .plan { font-size: 14px; color: #888; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
+    .pricing-card .price { font-size: 42px; font-weight: 900; margin: 16px 0; }
+    .pricing-card .price span { font-size: 16px; color: #888; font-weight: 400; }
+    .pricing-card ul { list-style: none; margin: 24px 0; }
+    .pricing-card ul li { padding: 8px 0; font-size: 14px; color: #aaa; }
+    .pricing-card ul li::before { content: '✅ '; }
+
+    /* Commands */
+    .commands { position: relative; z-index: 1; padding: 80px 20px; }
+    .commands-grid {
+      max-width: 800px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;
+    }
+    .cmd-item {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .cmd-item code {
+      background: rgba(88,101,242,0.15); color: #8b9aff; padding: 4px 10px;
+      border-radius: 6px; font-size: 13px; direction: ltr; display: inline-block;
+    }
+    .cmd-item span { font-size: 13px; color: #888; }
+
+    /* Footer */
+    footer {
+      position: relative; z-index: 1; text-align: center;
+      padding: 40px; border-top: 1px solid rgba(255,255,255,0.06);
+      color: #555; font-size: 14px;
+    }
+    footer a { color: #5865F2; text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; }
+      header { padding: 12px 20px; }
+      header nav a { margin: 0 6px; font-size: 12px; }
+      .pricing-card.featured { transform: none; }
+      .pricing-card.featured:hover { transform: translateY(-4px); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<!-- Header -->
+<header>
+  <div class="logo">✦ Annubis ProdCast</div>
+  <nav>
+    <a href="#features">المميزات</a>
+    <a href="#pricing">الأسعار</a>
+    <a href="#commands">الأوامر</a>
+    <a href="https://discord.gg/4CkmRwcCf2" target="_blank">دعم</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="badge">🤖 بوت برودكاست احترافي</div>
+  <h1>أفضل <span>بوت برودكاست</span><br>لسيرفرات ديسكورد</h1>
+  <p>بوت متكامل لإدارة البث الجماعي مع نظام اشتراكات، سحوبات، إشعارات يوتيوب، تحكم صوتي، والمزيد</p>
+  <div class="buttons">
+    <a href="https://discord.com/api/oauth2/authorize?client_id=1359216360669511731&permissions=8&scope=bot" target="_blank" class="btn btn-discord">➕ إضافة البوت</a>
+    <a href="#features" class="btn btn-outline">📖 المميزات</a>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="stats">
+  <div class="stat-item"><div class="num">10+</div><div class="label">سيرفرات</div></div>
+  <div class="stat-item"><div class="num">5000+</div><div class="label">رسالة مرسلة</div></div>
+  <div class="stat-item"><div class="num">100%</div><div class="label">رضا العملاء</div></div>
+  <div class="stat-item"><div class="num">24/7</div><div class="label">دعم فني</div></div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <h2 class="section-title">✨ المميزات</h2>
+  <p class="section-sub">كل ما تحتاجه في بوت واحد</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="icon">📨</div>
+      <h3>بث جماعي</h3>
+      <p>إرسال رسائل خاصة لجميع أعضاء السيرفر بنقرة واحدة مع إحصائيات دقيقة</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">💳</div>
+      <h3>نظام اشتراكات</h3>
+      <p>بيع واشتراكات تلقائية مع كشف تحويل ProBot وأكواد مجانية</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🎉</div>
+      <h3>سحوبات</h3>
+      <p>إنشاء سحوبات احترافية مع دخول بالتفاعل وسحب فائز عشوائي</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">▶️</div>
+      <h3>إشعارات يوتيوب</h3>
+      <p>مراقبة قنوات يوتيوب وإرسال إشعار فور نزول فيديو جديد</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🔊</div>
+      <h3>تحكم صوتي</h3>
+      <p>دخول وخروج من الرومات الصوتية لدعم السيرفر</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">🎫</div>
+      <h3>نظام تذاكر</h3>
+      <p>دعم فني متكامل عبر التذاكر مع كشف تلقائي للتحويلات</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">👑</div>
+      <h3>نظام صلاحيات</h3>
+      <p>تحكم كامل بالصلاحيات: مالك البوت، مالك السيرفر، مستخدمين مصرح لهم</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">📊</div>
+      <h3>إحصائيات</h3>
+      <p>إحصائيات مفصلة للسيرفرات والاشتراكات والإيرادات</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <h2 class="section-title">💰 الخطط والأسعار</h2>
+  <p class="section-sub">اختر الخطة المناسبة لسيرفرك</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="plan">اسبوعي</div>
+      <div class="price">500k <span>كريديت</span></div>
+      <ul>
+        <li>بث جماعي</li>
+        <li>نظام صلاحيات كامل</li>
+        <li>إشعارات يوتيوب</li>
+        <li>دعم فني</li>
+        <li>سحوبات</li>
+      </ul>
+      <a href="https://discord.gg/4CkmRwcCf2" target="_blank" class="btn btn-outline">اشتر الآن</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="plan">شهري 🔥</div>
+      <div class="price">1M <span>كريديت</span></div>
+      <ul>
+        <li>كل شيء في الاسبوعي</li>
+        <li>تحكم صوتي</li>
+        <li>أولوية في الدعم</li>
+        <li>تخصيص اسم البوت</li>
+        <li>تحديثات مستمرة</li>
+      </ul>
+      <a href="https://discord.gg/4CkmRwcCf2" target="_blank" class="btn btn-primary">اشتر الآن</a>
+    </div>
+  </div>
+</section>
+
+<!-- Commands -->
+<section class="commands" id="commands">
+  <h2 class="section-title">⌨️ الأوامر</h2>
+  <p class="section-sub">جميع أوامر البوت</p>
+  <div class="commands-grid">
+    <div class="cmd-item"><code>!send</code><span>إرسال برودكاست</span></div>
+    <div class="cmd-item"><code>!adduser</code><span>إضافة مستخدم</span></div>
+    <div class="cmd-item"><code>!removeuser</code><span>إزالة مستخدم</span></div>
+    <div class="cmd-item"><code>!listusers</code><span>عرض المصرح لهم</span></div>
+    <div class="cmd-item"><code>!mysub</code><span>مشاهدة الاشتراك</span></div>
+    <div class="cmd-item"><code>!g</code><span>إنشاء سحوبات</span></div>
+    <div class="cmd-item"><code>!y</code><span>إدارة يوتيوب</span></div>
+    <div class="cmd-item"><code>!vc</code><span>تحكم صوتي</span></div>
+    <div class="cmd-item"><code>!servers</code><span>عرض السيرفرات</span></div>
+    <div class="cmd-item"><code>!setname</code><span>تغيير اسم البوت</span></div>
+    <div class="cmd-item"><code>!promo</code><span>إرسال إعلان</span></div>
+    <div class="cmd-item"><code>!help</code><span>لوحة المساعدة</span></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>Annubis ProdCast © 2026 | مطور بواسطة <a href="https://discord.com/users/1060596734323851325" target="_blank">vuq2</a></p>
+  <p style="margin-top:8px; font-size:12px;">
+    <a href="https://discord.gg/4CkmRwcCf2" target="_blank">سيرفر الدعم</a>
+  </p>
+</footer>
+
+<script>
+  // Particles
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+  document.getElementById('particles').appendChild(canvas);
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const particles = Array.from({length:80}, () => ({
+    x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+    size: Math.random()*2+1, speedX: (Math.random()-0.5)*0.3, speedY: (Math.random()-0.5)*0.3,
+    opacity: Math.random()*0.5+0.1
+  }));
+  function drawParticles() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p => {
+      p.x += p.speedX; p.y += p.speedY;
+      if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
+      if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+      ctx.fillStyle = `rgba(88,101,242,${p.opacity})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+</script>
+
+</body>
+</html>

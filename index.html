@@ -341,19 +341,23 @@
   drawParticles();
   window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-  // Load updates
-  const updates = [
+  // Load updates — auto from updates.json (GitHub Pages), fallback to local
+  function renderUpdates(data) {
+    const container = document.getElementById('updatesList');
+    container.innerHTML = '';
+    for (let i = data.length - 1; i >= 0; i--) {
+      const u = data[i];
+      container.innerHTML += '<div class="update-entry"><div class="num">#' + (data.length - i) + '</div><div class="body"><div class="date">' + u.date + '</div><div class="text">' + u.text + '</div></div>';
+    }
+  }
+  const fallback = [
     { date: '2026-07-02', text: '🔄 تغيير البريفيكس من ! إلى +' },
     { date: '2026-07-02', text: '📋 إضافة نظام لوجات متكامل: حذف وتعديل الرسائل، الرتب، البان، الرومات، الفويس' },
     { date: '2026-07-02', text: '🔒 إضافة أوامر التحكم بالرومات: +private, +public, +privateall, +publicall' },
     { date: '2026-07-02', text: '📋 إضافة قسم التحديثات وأمر +updates و +addupdate' },
     { date: '2026-07-02', text: '🔒 إضافة أوامر القفل والفتح: +lock, +unlock, +lockall, +unlockall' },
   ];
-  const container = document.getElementById('updatesList');
-  for (let i = updates.length - 1; i >= 0; i--) {
-    const u = updates[i];
-    container.innerHTML += '<div class="update-entry"><div class="num">#' + (updates.length - i) + '</div><div class="body"><div class="date">' + u.date + '</div><div class="text">' + u.text + '</div></div>';
-  }
+  fetch('./updates.json').then(r => r.json()).then(data => { if (data.length) renderUpdates(data); else renderUpdates(fallback); }).catch(() => renderUpdates(fallback));
 </script>
 
 </body>

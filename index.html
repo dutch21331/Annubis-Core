@@ -341,23 +341,19 @@
   drawParticles();
   window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-  // Load updates dynamically from updates.json
-  fetch('./updates.json').then(r => r.json()).then(data => {
-    if (!data.length) return;
-    const container = document.getElementById('updatesList');
-    container.innerHTML = '';
-    data.slice().reverse().forEach((u, i) => {
-      const entry = document.createElement('div');
-      entry.className = 'update-entry';
-      entry.innerHTML = `
-        <div class="num">#${data.length - i}</div>
-        <div class="body">
-          <div class="date">${u.date}</div>
-          <div class="text">${u.text}</div>
-        </div>`;
-      container.appendChild(entry);
-    });
-  }).catch(() => {});
+  // Load updates
+  const updates = [
+    { date: '2026-07-02', text: '🔄 تغيير البريفيكس من ! إلى +' },
+    { date: '2026-07-02', text: '📋 إضافة نظام لوجات متكامل: حذف وتعديل الرسائل، الرتب، البان، الرومات، الفويس' },
+    { date: '2026-07-02', text: '🔒 إضافة أوامر التحكم بالرومات: +private, +public, +privateall, +publicall' },
+    { date: '2026-07-02', text: '📋 إضافة قسم التحديثات وأمر +updates و +addupdate' },
+    { date: '2026-07-02', text: '🔒 إضافة أوامر القفل والفتح: +lock, +unlock, +lockall, +unlockall' },
+  ];
+  const container = document.getElementById('updatesList');
+  for (let i = updates.length - 1; i >= 0; i--) {
+    const u = updates[i];
+    container.innerHTML += '<div class="update-entry"><div class="num">#' + (updates.length - i) + '</div><div class="body"><div class="date">' + u.date + '</div><div class="text">' + u.text + '</div></div>';
+  }
 </script>
 
 </body>

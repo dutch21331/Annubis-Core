@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Annubis ProdCast - بوت برودكاست احترافي</title>
+  <title>Annubis BroadCast - بوت برودكاست احترافي</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -117,6 +117,25 @@
     }
     .cmd-item span { font-size: 13px; color: #888; }
 
+    /* Updates */
+    .updates { position: relative; z-index: 1; padding: 80px 20px; }
+    .updates-timeline { max-width: 700px; margin: 0 auto; }
+    .update-entry {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 20px 24px; margin-bottom: 16px;
+      display: flex; align-items: flex-start; gap: 16px; transition: 0.3s;
+    }
+    .update-entry:hover { border-color: rgba(88,101,242,0.3); background: rgba(88,101,242,0.05); }
+    .update-entry .num {
+      background: rgba(88,101,242,0.15); color: #8b9aff;
+      min-width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 14px;
+    }
+    .update-entry .body { flex: 1; }
+    .update-entry .body .date { font-size: 12px; color: #666; margin-bottom: 4px; }
+    .update-entry .body .text { font-size: 14px; color: #ccc; line-height: 1.6; }
+
     /* Footer */
     footer {
       position: relative; z-index: 1; text-align: center;
@@ -140,11 +159,12 @@
 
 <!-- Header -->
 <header>
-  <div class="logo">✦ Annubis ProdCast</div>
+  <div class="logo">✦ Annubis BroadCast</div>
   <nav>
     <a href="#features">المميزات</a>
     <a href="#pricing">الأسعار</a>
     <a href="#commands">الأوامر</a>
+    <a href="#updates">التحديثات</a>
     <a href="https://discord.gg/7syKfqS6xr" target="_blank">دعم</a>
   </nav>
 </header>
@@ -254,24 +274,76 @@
   <h2 class="section-title">⌨️ الأوامر</h2>
   <p class="section-sub">جميع أوامر البوت</p>
   <div class="commands-grid">
-    <div class="cmd-item"><code>!send</code><span>إرسال برودكاست</span></div>
-    <div class="cmd-item"><code>!adduser</code><span>إضافة مستخدم</span></div>
-    <div class="cmd-item"><code>!removeuser</code><span>إزالة مستخدم</span></div>
-    <div class="cmd-item"><code>!listusers</code><span>عرض المصرح لهم</span></div>
-    <div class="cmd-item"><code>!mysub</code><span>مشاهدة الاشتراك</span></div>
-    <div class="cmd-item"><code>!g</code><span>إنشاء سحوبات</span></div>
-    <div class="cmd-item"><code>!y</code><span>إدارة يوتيوب</span></div>
-    <div class="cmd-item"><code>!vc</code><span>تحكم صوتي</span></div>
-    <div class="cmd-item"><code>!servers</code><span>عرض السيرفرات</span></div>
-    <div class="cmd-item"><code>!setname</code><span>تغيير اسم البوت</span></div>
-    <div class="cmd-item"><code>!promo</code><span>إرسال إعلان</span></div>
-    <div class="cmd-item"><code>!help</code><span>لوحة المساعدة</span></div>
+    <div class="cmd-item"><code>+send</code><span>إرسال برودكاست</span></div>
+    <div class="cmd-item"><code>+adduser</code><span>إضافة مستخدم</span></div>
+    <div class="cmd-item"><code>+removeuser</code><span>إزالة مستخدم</span></div>
+    <div class="cmd-item"><code>+listusers</code><span>عرض المصرح لهم</span></div>
+    <div class="cmd-item"><code>+mysub</code><span>مشاهدة الاشتراك</span></div>
+    <div class="cmd-item"><code>+g</code><span>إنشاء سحوبات</span></div>
+    <div class="cmd-item"><code>+y</code><span>إدارة يوتيوب</span></div>
+    <div class="cmd-item"><code>+vc</code><span>تحكم صوتي</span></div>
+    <div class="cmd-item"><code>+private</code><span>جعل روم خاص</span></div>
+    <div class="cmd-item"><code>+public</code><span>جعل روم عام</span></div>
+    <div class="cmd-item"><code>+privateall</code><span>كل الرومات خاصة</span></div>
+    <div class="cmd-item"><code>+publicall</code><span>كل الرومات عامة</span></div>
+    <div class="cmd-item"><code>+lock</code><span>قفل روم</span></div>
+    <div class="cmd-item"><code>+unlock</code><span>فتح روم</span></div>
+    <div class="cmd-item"><code>+lockall</code><span>قفل الكل</span></div>
+    <div class="cmd-item"><code>+unlockall</code><span>فتح الكل</span></div>
+    <div class="cmd-item"><code>+updates</code><span>عرض التحديثات</span></div>
+    <div class="cmd-item"><code>+servers</code><span>عرض السيرفرات</span></div>
+    <div class="cmd-item"><code>+setname</code><span>تغيير اسم البوت</span></div>
+    <div class="cmd-item"><code>+promo</code><span>إرسال إعلان</span></div>
+    <div class="cmd-item"><code>+help</code><span>لوحة المساعدة</span></div>
+  </div>
+</section>
+
+<!-- Updates -->
+<section class="updates" id="updates">
+  <h2 class="section-title">📋 التحديثات</h2>
+  <p class="section-sub">آخر التحديثات والإضافات للبوت</p>
+  <div class="updates-timeline">
+    <div class="update-entry">
+      <div class="num">#1</div>
+      <div class="body">
+        <div class="date">2026-07-02</div>
+        <div class="text">🔄 تغيير البريفيكس من <code style="background:rgba(88,101,242,0.15);color:#8b9aff;padding:2px 8px;border-radius:4px;font-size:13px;">!</code> إلى <code style="background:rgba(88,101,242,0.15);color:#8b9aff;padding:2px 8px;border-radius:4px;font-size:13px;">+</code></div>
+      </div>
+    </div>
+    <div class="update-entry">
+      <div class="num">#2</div>
+      <div class="body">
+        <div class="date">2026-07-02</div>
+        <div class="text">📋 إضافة نظام لوجات متكامل: حذف وتعديل الرسائل، الرتب، البان، الرومات، الفويس</div>
+      </div>
+    </div>
+    <div class="update-entry">
+      <div class="num">#3</div>
+      <div class="body">
+        <div class="date">2026-07-02</div>
+        <div class="text">🔒 إضافة أوامر التحكم بالرومات: <code>+private</code>, <code>+public</code>, <code>+privateall</code>, <code>+publicall</code></div>
+      </div>
+    </div>
+    <div class="update-entry">
+      <div class="num">#4</div>
+      <div class="body">
+        <div class="date">2026-07-02</div>
+        <div class="text">📋 إضافة قسم التحديثات في الموقع وأمر <code>+updates</code> و <code>+addupdate</code></div>
+      </div>
+    </div>
+    <div class="update-entry">
+      <div class="num">#5</div>
+      <div class="body">
+        <div class="date">2026-07-02</div>
+        <div class="text">🔒 إضافة أوامر القفل والفتح: <code>+lock</code>, <code>+unlock</code>, <code>+lockall</code>, <code>+unlockall</code></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- Footer -->
 <footer>
-  <p>Annubis ProdCast © 2026 | مطور بواسطة <a href="https://discord.com/users/1060596734323851325" target="_blank">vuq2</a></p>
+  <p>Annubis BroadCast © 2026 | مطور بواسطة <a href="https://discord.com/users/1060596734323851325" target="_blank">vuq2</a></p>
   <p style="margin-top:8px; font-size:12px;">
     <a href="https://discord.gg/7syKfqS6xr" target="_blank">سيرفر الدعم</a>
   </p>

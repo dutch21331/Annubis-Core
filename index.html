@@ -302,43 +302,7 @@
 <section class="updates" id="updates">
   <h2 class="section-title">📋 التحديثات</h2>
   <p class="section-sub">آخر التحديثات والإضافات للبوت</p>
-  <div class="updates-timeline">
-    <div class="update-entry">
-      <div class="num">#1</div>
-      <div class="body">
-        <div class="date">2026-07-02</div>
-        <div class="text">🔄 تغيير البريفيكس من <code style="background:rgba(88,101,242,0.15);color:#8b9aff;padding:2px 8px;border-radius:4px;font-size:13px;">!</code> إلى <code style="background:rgba(88,101,242,0.15);color:#8b9aff;padding:2px 8px;border-radius:4px;font-size:13px;">+</code></div>
-      </div>
-    </div>
-    <div class="update-entry">
-      <div class="num">#2</div>
-      <div class="body">
-        <div class="date">2026-07-02</div>
-        <div class="text">📋 إضافة نظام لوجات متكامل: حذف وتعديل الرسائل، الرتب، البان، الرومات، الفويس</div>
-      </div>
-    </div>
-    <div class="update-entry">
-      <div class="num">#3</div>
-      <div class="body">
-        <div class="date">2026-07-02</div>
-        <div class="text">🔒 إضافة أوامر التحكم بالرومات: <code>+private</code>, <code>+public</code>, <code>+privateall</code>, <code>+publicall</code></div>
-      </div>
-    </div>
-    <div class="update-entry">
-      <div class="num">#4</div>
-      <div class="body">
-        <div class="date">2026-07-02</div>
-        <div class="text">📋 إضافة قسم التحديثات في الموقع وأمر <code>+updates</code> و <code>+addupdate</code></div>
-      </div>
-    </div>
-    <div class="update-entry">
-      <div class="num">#5</div>
-      <div class="body">
-        <div class="date">2026-07-02</div>
-        <div class="text">🔒 إضافة أوامر القفل والفتح: <code>+lock</code>, <code>+unlock</code>, <code>+lockall</code>, <code>+unlockall</code></div>
-      </div>
-    </div>
-  </div>
+  <div class="updates-timeline" id="updatesList"></div>
 </section>
 
 <!-- Footer -->
@@ -376,6 +340,24 @@
   }
   drawParticles();
   window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+  // Load updates dynamically from updates.json
+  fetch('./updates.json').then(r => r.json()).then(data => {
+    if (!data.length) return;
+    const container = document.getElementById('updatesList');
+    container.innerHTML = '';
+    data.slice().reverse().forEach((u, i) => {
+      const entry = document.createElement('div');
+      entry.className = 'update-entry';
+      entry.innerHTML = `
+        <div class="num">#${data.length - i}</div>
+        <div class="body">
+          <div class="date">${u.date}</div>
+          <div class="text">${u.text}</div>
+        </div>`;
+      container.appendChild(entry);
+    });
+  }).catch(() => {});
 </script>
 
 </body>

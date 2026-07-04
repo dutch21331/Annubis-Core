@@ -568,9 +568,12 @@
   });
 
   // Visitor counter
-  fetch('https://api.countapi.xyz/hit/annubis-core/visitors')
-    .then(r => r.json())
-    .then(d => { document.getElementById('visitorCount').textContent = d.value.toLocaleString(); })
+  fetch('https://visitor-badge.laobi.icu/badge?page_id=dutch21331.annubis-core')
+    .then(r => r.text())
+    .then(svg => {
+      const m = svg.match(/>(\d+)<\/text><a href="https:\/\/visitor-badge\.laobi\.icu/);
+      if (m) document.getElementById('visitorCount').textContent = m[1];
+    })
     .catch(() => {});
   fetch('./updates.json').then(r => r.json()).then(data => renderUpdates(data)).catch(() => renderUpdates([
     { date: '2026-07-02', text: 'إطلاق البوت وتغيير البريفيكس إلى +' },

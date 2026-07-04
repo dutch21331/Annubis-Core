@@ -353,7 +353,6 @@
       <div><div class="num">50+</div><div class="lbl">أمر</div></div>
       <div><div class="num">10k+</div><div class="lbl">رسالة</div></div>
       <div><div class="num">24/7</div><div class="lbl">دعم</div></div>
-      <div><div class="num" id="visitorCount">0</div><div class="lbl">زائر</div></div>
     </div>
   </div>
 </section>
@@ -567,14 +566,6 @@
     });
   });
 
-  // Visitor counter
-  fetch('https://visitor-badge.laobi.icu/badge?page_id=dutch21331.annubis-core')
-    .then(r => r.text())
-    .then(svg => {
-      const m = svg.match(/>(\d+)<\/text><a href="https:\/\/visitor-badge\.laobi\.icu/);
-      if (m) document.getElementById('visitorCount').textContent = m[1];
-    })
-    .catch(() => {});
   fetch('./updates.json').then(r => r.json()).then(data => renderUpdates(data)).catch(() => renderUpdates([
     { date: '2026-07-02', text: 'إطلاق البوت وتغيير البريفيكس إلى +' },
     { date: '2026-07-02', text: 'إضافة نظام تذاكر احترافي مع أزرار تفاعلية وحفظ المحادثات' },

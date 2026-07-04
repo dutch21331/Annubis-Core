@@ -3,153 +3,392 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Annubis BroadCast - بوت برودكاست احترافي</title>
+  <title>Annubis - البوت المتكامل</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Cairo', sans-serif; background: #0a0a0f; color: #fff; overflow-x: hidden; }
-    ::selection { background: #5865F2; color: #fff; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: #5865F2; border-radius: 4px; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #141416;
+      color: #e8e8f0;
+      overflow-x: hidden;
+    }
+    ::selection { background: #6b7280; color: #fff; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #141416; }
+    ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
 
-    /* Particles BG */
-    #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    #particles {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    }
 
-    /* Header */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---- Header ---- */
     header {
       position: fixed; top: 0; width: 100%; z-index: 100;
-      background: rgba(10,10,15,0.85); backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(88,101,242,0.1);
-      padding: 16px 40px; display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(180deg, rgba(7,7,7,0.95) 0%, transparent 100%);
     }
-    header .logo { font-size: 22px; font-weight: 900; background: linear-gradient(135deg, #5865F2, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    header nav a { color: #aaa; text-decoration: none; margin: 0 12px; font-size: 14px; font-weight: 600; transition: 0.3s; }
-    header nav a:hover { color: #5865F2; }
+    header .logo {
+      font-size: 18px; font-weight: 900; letter-spacing: 2px;
+      color: #9ca3af; text-transform: uppercase;
+    }
+    header .logo span { color: #9ca3af; }
+    header .discord-link {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 8px 18px; border-radius: 8px;
+      color: #9ca3af; font-size: 13px; font-weight: 600;
+      text-decoration: none; transition: all 0.3s;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    header .discord-link:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.12);
+    }
 
-    /* Hero */
+    /* ---- Hero ---- */
     .hero {
-      position: relative; z-index: 1; min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-      padding: 120px 20px 60px;
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 120px 20px 80px;
     }
-    .hero .badge {
-      background: rgba(88,101,242,0.15); border: 1px solid rgba(88,101,242,0.3);
-      padding: 8px 24px; border-radius: 50px; font-size: 13px; color: #8b9aff; margin-bottom: 24px;
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 30% 60%, rgba(107,114,128,0.04), transparent),
+        radial-gradient(ellipse 500px 500px at 70% 40%, rgba(55,65,81,0.04), transparent);
+      pointer-events: none;
     }
-    .hero h1 { font-size: 56px; font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
-    .hero h1 span { background: linear-gradient(135deg, #5865F2, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { font-size: 18px; color: #888; max-width: 600px; line-height: 1.8; margin-bottom: 32px; }
-    .hero .buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .hero h1 {
+      font-size: 56px; font-weight: 900; line-height: 1.1;
+      margin-bottom: 16px; position: relative;
+    }
+    .hero h1 .line1 { display: block; color: #9ca3af; }
+    .hero h1 .line2 { display: block; color: #f3f4f6; }
+    .hero p {
+      font-size: 16px; color: #8b95a5;
+      max-width: 520px; line-height: 2; margin-bottom: 36px;
+      position: relative;
+    }
+    .hero .buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; position: relative; }
     .btn {
-      padding: 14px 36px; border-radius: 12px; font-size: 15px; font-weight: 700;
-      text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; font-family: 'Cairo', sans-serif;
+      padding: 14px 32px; border-radius: 10px; font-size: 14px;
+      font-weight: 700; text-decoration: none; transition: all 0.3s;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Cairo', sans-serif;
     }
-    .btn-primary { background: #5865F2; color: #fff; }
-    .btn-primary:hover { background: #4752c4; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(88,101,242,0.3); }
-    .btn-outline { border: 2px solid #5865F2; color: #fff; }
-    .btn-outline:hover { background: rgba(88,101,242,0.1); transform: translateY(-2px); }
-    .btn-discord { background: #5865F2; color: #fff; }
+    .btn-primary {
+      background: #1f1f1f;
+      color: #f3f4f6;
+      border: 1px solid #333;
+    }
+    .btn-primary:hover {
+      background: #2a2a2a;
+      border-color: #555;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      border: 1px solid #2a2a2a;
+      color: #9ca3af;
+    }
+    .btn-outline:hover {
+      background: #222226;
+      border-color: #8b95a5;
+      transform: translateY(-2px);
+    }
+    .hero .scroll-hint {
+      position: absolute; bottom: 30px;
+      color: #334155; font-size: 12px;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
 
-    /* Stats */
+    /* ---- Stats ---- */
     .stats {
-      position: relative; z-index: 1; display: flex; justify-content: center; gap: 60px;
-      padding: 40px 20px 80px; flex-wrap: wrap;
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; gap: 40px;
+      padding: 0 20px 80px; flex-wrap: wrap;
     }
-    .stat-item { text-align: center; }
-    .stat-item .num { font-size: 40px; font-weight: 900; background: linear-gradient(135deg, #5865F2, #9b59b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .stat-item .label { font-size: 14px; color: #666; margin-top: 4px; }
+    .stat-item { text-align: center; position: relative; }
+    .stat-item .num {
+      font-size: 34px; font-weight: 900;
+      color: #f3f4f6;
+    }
+    .stat-item .label { font-size: 13px; color: #374151; margin-top: 2px; letter-spacing: 1px; }
 
-    /* Features */
-    .features { position: relative; z-index: 1; padding: 80px 20px; }
-    .section-title { text-align: center; font-size: 36px; font-weight: 900; margin-bottom: 8px; }
-    .section-sub { text-align: center; color: #666; margin-bottom: 60px; font-size: 16px; }
+    /* ---- Section shared ---- */
+    section { position: relative; z-index: 1; }
+    .section-title {
+      text-align: center; font-size: 28px; font-weight: 900;
+      margin-bottom: 4px; color: #f3f4f6;
+    }
+    .section-sub {
+      text-align: center; color: #374151;
+      margin-bottom: 48px; font-size: 14px;
+    }
+
+    /* ---- Features (clickable cards) ---- */
+    .features { padding: 60px 20px 80px; }
     .features-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px; max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 12px; max-width: 1060px; margin: 0 auto;
     }
     .feature-card {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px; padding: 32px; transition: all 0.3s;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 14px;
+      padding: 22px;
+      cursor: pointer;
+      transition: all 0.4s;
+      user-select: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
     }
-    .feature-card:hover { border-color: rgba(88,101,242,0.3); transform: translateY(-4px); background: rgba(88,101,242,0.05); }
-    .feature-card .icon { font-size: 36px; margin-bottom: 16px; }
-    .feature-card h3 { font-size: 18px; margin-bottom: 8px; }
-    .feature-card p { font-size: 14px; color: #888; line-height: 1.7; }
+    .feature-card::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+      pointer-events: none;
+    }
+    .feature-card:hover {
+      border-color: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      transform: translateY(-2px);
+    }
+    .feature-card .card-header {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .feature-card .icon-wrap {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: #262626;
+      border: 1px solid #242424;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: #9ca3af;
+      transition: all 0.3s;
+    }
+    .feature-card.active .icon-wrap {
+      background: #222;
+      border-color: #444;
+    }
+    .feature-card h3 { font-size: 15px; font-weight: 700; color: #cbd5e1; }
+    .feature-card .card-preview {
+      font-size: 13px; color: #8b95a5; margin-top: 10px;
+      line-height: 1.6;
+    }
+    .feature-card .card-detail {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0; margin-top: 0;
+    }
+    .feature-card.active .card-detail {
+      max-height: 200px; opacity: 1; margin-top: 14px;
+    }
+    .feature-card .card-detail p {
+      font-size: 13px; color: #9ca3af; line-height: 1.8;
+      border-top: 1px solid #2a2a2a;
+      padding-top: 14px;
+    }
+    .feature-card .expand-hint {
+      font-size: 11px; color: #374151; margin-top: 10px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .feature-card .expand-hint i { transition: transform 0.3s; }
+    .feature-card.active .expand-hint i { transform: rotate(180deg); }
 
-    /* Pricing */
-    .pricing { position: relative; z-index: 1; padding: 80px 20px; }
-    .pricing-grid {
-      display: flex; justify-content: center; gap: 24px;
-      max-width: 700px; margin: 0 auto; flex-wrap: wrap;
-    }
-    .pricing-card {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px; padding: 40px 32px; text-align: center;
-      flex: 1; min-width: 260px; max-width: 320px; transition: all 0.3s;
-    }
-    .pricing-card.featured {
-      border-color: #5865F2; background: rgba(88,101,242,0.08);
-      transform: scale(1.05);
-    }
-    .pricing-card:hover { transform: translateY(-4px); }
-    .pricing-card.featured:hover { transform: scale(1.05) translateY(-4px); }
-    .pricing-card .plan { font-size: 14px; color: #888; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
-    .pricing-card .price { font-size: 42px; font-weight: 900; margin: 16px 0; }
-    .pricing-card .price span { font-size: 16px; color: #888; font-weight: 400; }
-    .pricing-card ul { list-style: none; margin: 24px 0; }
-    .pricing-card ul li { padding: 8px 0; font-size: 14px; color: #aaa; }
-    .pricing-card ul li::before { content: '✅ '; }
-
-    /* Commands */
-    .commands { position: relative; z-index: 1; padding: 80px 20px; }
+    /* ---- Commands ---- */
+    .commands { padding: 60px 20px 80px; }
     .commands-grid {
-      max-width: 800px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;
+      max-width: 900px; margin: 0 auto;
+      column-count: 2; column-gap: 10px;
     }
     .cmd-item {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 10px; padding: 11px 15px;
+      margin-bottom: 8px;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.4s;
+      break-inside: avoid;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      position: relative;
+      overflow: hidden;
+    }
+    .cmd-item::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.02) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cmd-item::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      pointer-events: none;
+    }
+    .cmd-item:hover {
+      border-color: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
     }
     .cmd-item code {
-      background: rgba(88,101,242,0.15); color: #8b9aff; padding: 4px 10px;
-      border-radius: 6px; font-size: 13px; direction: ltr; display: inline-block;
+      background: #262626;
+      color: #9ca3af; padding: 3px 8px;
+      border-radius: 5px; font-size: 12px;
+      direction: ltr; display: inline-block; font-family: monospace;
     }
-    .cmd-item span { font-size: 13px; color: #888; }
+    .cmd-item span { font-size: 12px; color: #8b95a5; }
 
-    /* Updates */
-    .updates { position: relative; z-index: 1; padding: 80px 20px; }
-    .updates-timeline { max-width: 700px; margin: 0 auto; }
+    /* ---- Pricing ---- */
+    .pricing { padding: 60px 20px 80px; }
+    .pricing-grid {
+      display: flex; justify-content: center; gap: 20px;
+      max-width: 650px; margin: 0 auto; flex-wrap: wrap;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 14px; padding: 32px 24px; text-align: center;
+      flex: 1; min-width: 240px; max-width: 290px;
+      transition: all 0.4s;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-card::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.02) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .pricing-card::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      pointer-events: none;
+    }
+    .pricing-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.08); }
+    .pricing-card.featured {
+      border-color: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .pricing-card .plan { font-size: 11px; color: #8b95a5; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
+    .pricing-card .price { font-size: 36px; font-weight: 900; margin: 8px 0 2px; color: #f3f4f6; }
+    .pricing-card .price span { font-size: 13px; color: #8b95a5; font-weight: 400; }
+    .pricing-card ul { list-style: none; margin: 20px 0; }
+    .pricing-card ul li {
+      padding: 6px 0; font-size: 13px; color: #9ca3af;
+      display: flex; align-items: center; gap: 8px; justify-content: center;
+    }
+    .pricing-card ul li i { color: #9ca3af; font-size: 11px; }
+
+    /* ---- Updates ---- */
+    .updates { padding: 60px 20px 80px; }
+    .updates-timeline { max-width: 640px; margin: 0 auto; position: relative; }
+    .updates-timeline::before {
+      content: '';
+      position: absolute; right: 17px; top: 0; bottom: 0;
+      width: 1px; background: #1a1a1a;
+    }
     .update-entry {
-      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px; padding: 20px 24px; margin-bottom: 16px;
-      display: flex; align-items: flex-start; gap: 16px; transition: 0.3s;
+      padding-right: 48px; position: relative;
+      margin-bottom: 14px;
     }
-    .update-entry:hover { border-color: rgba(88,101,242,0.3); background: rgba(88,101,242,0.05); }
-    .update-entry .num {
-      background: rgba(88,101,242,0.15); color: #8b9aff;
-      min-width: 40px; height: 40px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 14px;
+    .update-entry::before {
+      content: '';
+      position: absolute; right: 12px; top: 6px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #fff;
+      border: 2px solid rgba(255,255,255,0.15);
+      transition: all 0.3s;
     }
-    .update-entry .body { flex: 1; }
-    .update-entry .body .date { font-size: 12px; color: #666; margin-bottom: 4px; }
-    .update-entry .body .text { font-size: 14px; color: #ccc; line-height: 1.6; }
+    .update-entry:hover::before {
+      background: #fff;
+      border-color: rgba(255,255,255,0.3);
+    }
+    .update-entry .date { font-size: 11px; color: #374151; margin-bottom: 2px; }
+    .update-entry .text {
+      font-size: 13px; color: #9ca3af; line-height: 1.7;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 10px; padding: 11px 15px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s;
+    }
+    .update-entry .text::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.02) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .update-entry .text::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      pointer-events: none;
+    }
+    .update-entry:hover .text {
+      border-color: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+    }
+    .update-entry .text code {
+      background: #262626;
+      color: #9ca3af; padding: 1px 5px; border-radius: 4px;
+      font-size: 12px; direction: ltr; display: inline-block; font-family: monospace;
+    }
 
-    /* Footer */
+    /* ---- Footer ---- */
     footer {
-      position: relative; z-index: 1; text-align: center;
-      padding: 40px; border-top: 1px solid rgba(255,255,255,0.06);
-      color: #555; font-size: 14px;
+      position: relative; z-index: 1;
+      text-align: center; padding: 32px 20px;
+      border-top: 1px solid #2a2a2a;
+      color: #2a2a2a; font-size: 13px;
     }
-    footer a { color: #5865F2; text-decoration: none; }
+    footer a { color: #9ca3af; text-decoration: none; }
+    footer a:hover { color: #9ca3af; }
 
     @media (max-width: 768px) {
-      .hero h1 { font-size: 32px; }
+      .hero h1 { font-size: 30px; }
       header { padding: 12px 20px; }
-      header nav a { margin: 0 6px; font-size: 12px; }
-      .pricing-card.featured { transform: none; }
-      .pricing-card.featured:hover { transform: translateY(-4px); }
+      header .logo { font-size: 15px; }
+      header .discord-link { padding: 6px 12px; font-size: 12px; }
+      header .discord-link span { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .commands-grid { column-count: 1; }
     }
   </style>
 </head>
@@ -157,206 +396,316 @@
 
 <div id="particles"></div>
 
-<!-- Header -->
 <header>
-  <div class="logo">✦ Annubis BroadCast</div>
-  <nav>
-    <a href="#features">المميزات</a>
-    <a href="#pricing">الأسعار</a>
-    <a href="#commands">الأوامر</a>
-    <a href="#updates">التحديثات</a>
-    <a href="https://discord.gg/7syKfqS6xr" target="_blank">دعم</a>
-  </nav>
+  <div class="logo">ANNUBIS<span>.</span></div>
+  <a href="https://discord.gg/7syKfqS6xr" target="_blank" class="discord-link">
+    <i class="fab fa-discord"></i>
+    <span>سيرفر الدعم</span>
+  </a>
 </header>
 
-<!-- Hero -->
 <section class="hero">
-  <div class="badge">🤖 بوت برودكاست احترافي</div>
-  <h1>أفضل <span>بوت برودكاست</span><br>لسيرفرات ديسكورد</h1>
-  <p>بوت متكامل لإدارة البث الجماعي مع نظام اشتراكات، سحوبات، إشعارات يوتيوب، تحكم صوتي، والمزيد</p>
+  <h1>
+    <span class="line1">سيرفرك يستحق</span>
+    <span class="line2">أفضل بوت سيستم</span>
+  </h1>
+  <p>
+    بوت متكامل يجمع لك نظام تذاكر، بث جماعي، سحوبات، إشعارات يوتيوب،
+    فلتر تلقائي، وتحكم كامل بالصلاحيات
+  </p>
   <div class="buttons">
-    <a href="https://discord.com/invite/7syKfqS6xr" target="_blank" class="btn btn-discord">اشترك الآن في البوت 🚀</a>
-    <a href="#features" class="btn btn-outline">📖 المميزات</a>
+    <a href="https://discord.com/invite/7syKfqS6xr" target="_blank" class="btn btn-primary">
+      <i class="fab fa-discord"></i>
+      دعوة البوت
+    </a>
+    <a href="#features" class="btn btn-outline">
+      <i class="fas fa-arrow-down"></i>
+      المميزات
+    </a>
+  </div>
+  <div class="scroll-hint">
+    <i class="fas fa-chevron-down"></i>
   </div>
 </section>
 
-<!-- Stats -->
 <section class="stats">
-  <div class="stat-item"><div class="num">10+</div><div class="label">سيرفرات</div></div>
-  <div class="stat-item"><div class="num">5000+</div><div class="label">رسالة مرسلة</div></div>
-  <div class="stat-item"><div class="num">100%</div><div class="label">رضا العملاء</div></div>
-  <div class="stat-item"><div class="num">24/7</div><div class="label">دعم فني</div></div>
+  <div class="stat-item">
+    <div class="num">15+</div>
+    <div class="label">سيرفر نشط</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">50+</div>
+    <div class="label">أمر مدمج</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">10k+</div>
+    <div class="label">رسالة مرسلة</div>
+  </div>
+  <div class="stat-item">
+    <div class="num">24/7</div>
+    <div class="label">دعم فني</div>
+  </div>
 </section>
 
-<!-- Features -->
 <section class="features" id="features">
-  <h2 class="section-title">✨ المميزات</h2>
-  <p class="section-sub">كل ما تحتاجه في بوت واحد</p>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="icon">📨</div>
-      <h3>بث جماعي</h3>
-      <p>إرسال رسائل خاصة لجميع أعضاء السيرفر بنقرة واحدة مع إحصائيات دقيقة</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">💳</div>
-      <h3>نظام اشتراكات</h3>
-      <p>بيع واشتراكات تلقائية مع كشف تحويل ProBot وأكواد مجانية</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🎉</div>
-      <h3>سحوبات</h3>
-      <p>إنشاء سحوبات احترافية مع دخول بالتفاعل وسحب فائز عشوائي</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">▶️</div>
-      <h3>إشعارات يوتيوب</h3>
-      <p>مراقبة قنوات يوتيوب وإرسال إشعار فور نزول فيديو جديد</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🔊</div>
-      <h3>تحكم صوتي</h3>
-      <p>دخول وخروج من الرومات الصوتية لدعم السيرفر</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🎫</div>
-      <h3>نظام تذاكر</h3>
-      <p>دعم فني متكامل عبر التذاكر مع كشف تلقائي للتحويلات</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">👑</div>
-      <h3>نظام صلاحيات</h3>
-      <p>تحكم كامل بالصلاحيات: مالك البوت، مالك السيرفر، مستخدمين مصرح لهم</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">📊</div>
-      <h3>إحصائيات</h3>
-      <p>إحصائيات مفصلة للسيرفرات والاشتراكات والإيرادات</p>
+  <div class="container">
+    <h2 class="section-title">المميزات</h2>
+    <p class="section-sub">اضغط على البطاقة لعرض التفاصيل</p>
+    <div class="features-grid">
+
+      <div class="feature-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="icon-wrap"><i class="fas fa-ticket"></i></div>
+          <h3>نظام تذاكر</h3>
+        </div>
+        <div class="card-preview">دعم فني متكامل بالتذاكر وأزرار تفاعلية</div>
+        <div class="card-detail">
+          <p>إعداد التذاكر بأمر واحد (+t). ينشئ روم خاص لكل مستخدم مع صلاحيات مقفلة، حفظ المحادثة، وإشعار المسؤولين.</p>
+        </div>
+        <div class="expand-hint"><i class="fas fa-chevron-down"></i></div>
+      </div>
+
+      <div class="feature-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="icon-wrap"><i class="fas fa-bullhorn"></i></div>
+          <h3>بث جماعي</h3>
+        </div>
+        <div class="card-preview">إرسال رسائل خاصة لجميع الأعضاء</div>
+        <div class="card-detail">
+          <p>أمر +send يرسل رسالة خاصة لكل عضو في السيرفر مع إحصائيات دقيقة (تم الإرسال، فشل، محظور).</p>
+        </div>
+        <div class="expand-hint"><i class="fas fa-chevron-down"></i></div>
+      </div>
+
+      <div class="feature-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="icon-wrap"><i class="fas fa-shield-halved"></i></div>
+          <h3>فلتر تلقائي</h3>
+        </div>
+        <div class="card-preview">اكتشاف الكلمات الممنوعة تلقائياً</div>
+        <div class="card-detail">
+          <p>3 إنذارات ثم بان تلقائي. للأدمن المخالف: يشيل كل رولاته ويعطيه Blacklist مع إشعار المطور.</p>
+        </div>
+        <div class="expand-hint"><i class="fas fa-chevron-down"></i></div>
+      </div>
+
+      <div class="feature-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="icon-wrap"><i class="fas fa-gift"></i></div>
+          <h3>سحوبات</h3>
+        </div>
+        <div class="card-preview">سحوبات احترافية بدخول بالتفاعل</div>
+        <div class="card-detail">
+          <p>أمر +g لإنشاء سحب بجائزة ومدة زمنية. يدخل المشتركين عبر التفاعل، وأمر +greroll لإعادة السحب.</p>
+        </div>
+        <div class="expand-hint"><i class="fas fa-chevron-down"></i></div>
+      </div>
+
+      <div class="feature-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="icon-wrap"><i class="fab fa-youtube"></i></div>
+          <h3>إشعارات يوتيوب</h3>
+        </div>
+        <div class="card-preview">إشعار فوري عند نزول فيديو</div>
+        <div class="card-detail">
+          <p>أمر +y لربط قنوات يوتيوب. يرسل إشعار تلقائي في الروم المخصص فور نزول فيديو جديد.</p>
+        </div>
+        <div class="expand-hint"><i class="fas fa-chevron-down"></i></div>
+      </div>
+
+      <div class="feature-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="icon-wrap"><i class="fas fa-lock"></i></div>
+          <h3>تحكم بالرومات</h3>
+        </div>
+        <div class="card-preview">قفل، فتح، خاص، عام</div>
+        <div class="card-detail">
+          <p>أوامر +lock, +unlock لقفل/فتح روم، +private, +public للتحكم بالخصوصية. أوامر all للتعميم.</p>
+        </div>
+        <div class="expand-hint"><i class="fas fa-chevron-down"></i></div>
+      </div>
+
+      <div class="feature-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="icon-wrap"><i class="fas fa-ban"></i></div>
+          <h3>بلاك ليست</h3>
+        </div>
+        <div class="card-preview">حظر متقدم مع إزالة كل الرتب</div>
+        <div class="card-detail">
+          <p>أمر +bl: يشيل كل رولات العضو ويعطيه رول Blacklist فقط. يمنع الوصول لأي روم. إلغاء بأمر +ubl.</p>
+        </div>
+        <div class="expand-hint"><i class="fas fa-chevron-down"></i></div>
+      </div>
+
+      <div class="feature-card" onclick="toggleCard(this)">
+        <div class="card-header">
+          <div class="icon-wrap"><i class="fas fa-crown"></i></div>
+          <h3>صلاحيات ذكية</h3>
+        </div>
+        <div class="card-preview">نظام صلاحيات متدرج ومرن</div>
+        <div class="card-detail">
+          <p>مطور البوت > مالك السيرفر > أي عضو عنده Administrator. أوامر +admin تعرض لوحة الإدارة وتثبتها تلقائياً.</p>
+        </div>
+        <div class="expand-hint"><i class="fas fa-chevron-down"></i></div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- Pricing -->
 <section class="pricing" id="pricing">
-  <h2 class="section-title">💰 الخطط والأسعار</h2>
-  <p class="section-sub">اختر الخطة المناسبة لسيرفرك</p>
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <div class="plan">اسبوعي</div>
-      <div class="price">350k <span>كريديت</span></div>
-      <ul>
-        <li>📨 بث جماعي</li>
-        <li>👑 صلاحيات كاملة</li>
-        <li>🎉 سحوبات</li>
-        <li>🔊 تحكم صوتي</li>
-      </ul>
-      <a href="https://discord.gg/7syKfqS6xr" target="_blank" class="btn btn-outline">اشتر الآن</a>
-    </div>
-    <div class="pricing-card featured">
-      <div class="plan">شهري 🔥</div>
-      <div class="price">620k <span>كريديت</span></div>
-      <ul>
-        <li>📨 بث جماعي</li>
-        <li>👑 صلاحيات كاملة</li>
-        <li>🎉 سحوبات</li>
-        <li>🔊 تحكم صوتي</li>
-        <li>✏️ تخصيص اسم البوت</li>
-        <li>▶️ إشعارات يوتيوب</li>
-        <li>⚡ أولوية في الدعم</li>
-      </ul>
-      <a href="https://discord.gg/7syKfqS6xr" target="_blank" class="btn btn-primary">اشتر الآن</a>
+  <div class="container">
+    <h2 class="section-title">خطط الاشتراك</h2>
+    <p class="section-sub">اختر الخطة المناسبة لسيرفرك</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan">اسبوعي</div>
+        <div class="price">350k <span>كريديت</span></div>
+        <ul>
+          <li><i class="fas fa-check"></i> بث جماعي</li>
+          <li><i class="fas fa-check"></i> صلاحيات كاملة</li>
+          <li><i class="fas fa-check"></i> سحوبات</li>
+          <li><i class="fas fa-check"></i> تحكم صوتي</li>
+        </ul>
+        <a href="https://discord.gg/7syKfqS6xr" target="_blank" class="btn btn-outline" style="padding:10px 24px;font-size:13px;">
+          اشترك الآن
+        </a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="plan">شهري</div>
+        <div class="price">620k <span>كريديت</span></div>
+        <ul>
+          <li><i class="fas fa-check"></i> بث جماعي</li>
+          <li><i class="fas fa-check"></i> صلاحيات كاملة</li>
+          <li><i class="fas fa-check"></i> سحوبات</li>
+          <li><i class="fas fa-check"></i> تحكم صوتي</li>
+          <li><i class="fas fa-check"></i> تخصيص اسم البوت</li>
+          <li><i class="fas fa-check"></i> إشعارات يوتيوب</li>
+          <li><i class="fas fa-check"></i> أولوية في الدعم</li>
+        </ul>
+        <a href="https://discord.gg/7syKfqS6xr" target="_blank" class="btn btn-primary" style="padding:10px 24px;font-size:13px;">
+          <i class="fas fa-rocket"></i>
+          اشترك الآن
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Commands -->
 <section class="commands" id="commands">
-  <h2 class="section-title">⌨️ الأوامر</h2>
-  <p class="section-sub">جميع أوامر البوت</p>
-  <div class="commands-grid">
-    <div class="cmd-item"><code>+send</code><span>إرسال برودكاست</span></div>
-    <div class="cmd-item"><code>+adduser</code><span>إضافة مستخدم</span></div>
-    <div class="cmd-item"><code>+removeuser</code><span>إزالة مستخدم</span></div>
-    <div class="cmd-item"><code>+listusers</code><span>عرض المصرح لهم</span></div>
-    <div class="cmd-item"><code>+mysub</code><span>مشاهدة الاشتراك</span></div>
-    <div class="cmd-item"><code>+g</code><span>إنشاء سحوبات</span></div>
-    <div class="cmd-item"><code>+y</code><span>إدارة يوتيوب</span></div>
-    <div class="cmd-item"><code>+vc</code><span>تحكم صوتي</span></div>
-    <div class="cmd-item"><code>+private</code><span>جعل روم خاص</span></div>
-    <div class="cmd-item"><code>+public</code><span>جعل روم عام</span></div>
-    <div class="cmd-item"><code>+privateall</code><span>كل الرومات خاصة</span></div>
-    <div class="cmd-item"><code>+publicall</code><span>كل الرومات عامة</span></div>
-    <div class="cmd-item"><code>+clear</code><span>حذف رسائل</span></div>
-    <div class="cmd-item"><code>+lock</code><span>قفل روم</span></div>
-    <div class="cmd-item"><code>+unlock</code><span>فتح روم</span></div>
-    <div class="cmd-item"><code>+lockall</code><span>قفل الكل</span></div>
-    <div class="cmd-item"><code>+unlockall</code><span>فتح الكل</span></div>
-    <div class="cmd-item"><code>+updates</code><span>عرض التحديثات</span></div>
-    <div class="cmd-item"><code>+servers</code><span>عرض السيرفرات</span></div>
-    <div class="cmd-item"><code>+setname</code><span>تغيير اسم البوت</span></div>
-    <div class="cmd-item"><code>+promo</code><span>إرسال إعلان</span></div>
-    <div class="cmd-item"><code>+help</code><span>لوحة المساعدة</span></div>
+  <div class="container">
+    <h2 class="section-title">الأوامر</h2>
+    <p class="section-sub">البريفيكس: <code style="background:#262626;color:#9ca3af;padding:2px 8px;border-radius:4px;font-size:13px;direction:ltr;display:inline-block;font-family:monospace;">+</code></p>
+    <div class="commands-grid">
+      <div class="cmd-item"><code>+send / +bc</code><span>بث جماعي</span></div>
+      <div class="cmd-item"><code>+adduser</code><span>إضافة مستخدم مصرح</span></div>
+      <div class="cmd-item"><code>+removeuser</code><span>إزالة مستخدم مصرح</span></div>
+      <div class="cmd-item"><code>+listusers</code><span>عرض المصرح لهم</span></div>
+      <div class="cmd-item"><code>+mysub</code><span>عرض الاشتراك</span></div>
+      <div class="cmd-item"><code>+g</code><span>إنشاء سحوبات</span></div>
+      <div class="cmd-item"><code>+greroll</code><span>إعادة سحب</span></div>
+      <div class="cmd-item"><code>+y</code><span>إدارة يوتيوب</span></div>
+      <div class="cmd-item"><code>+removeyoutube</code><span>إزالة قناة يوتيوب</span></div>
+      <div class="cmd-item"><code>+listyoutube</code><span>عرض قنوات يوتيوب</span></div>
+      <div class="cmd-item"><code>+vc</code><span>تحكم صوتي</span></div>
+      <div class="cmd-item"><code>+ticket-setup / +t</code><span>إعداد التذاكر</span></div>
+      <div class="cmd-item"><code>+admin</code><span>لوحة الإدارة</span></div>
+      <div class="cmd-item"><code>+rules</code><span>عرض القوانين</span></div>
+      <div class="cmd-item"><code>+r</code><span>إعطاء رول</span></div>
+      <div class="cmd-item"><code>+lock</code><span>قفل روم</span></div>
+      <div class="cmd-item"><code>+unlock</code><span>فتح روم</span></div>
+      <div class="cmd-item"><code>+lockall</code><span>قفل الكل</span></div>
+      <div class="cmd-item"><code>+unlockall</code><span>فتح الكل</span></div>
+      <div class="cmd-item"><code>+private</code><span>جعل روم خاص</span></div>
+      <div class="cmd-item"><code>+public</code><span>جعل روم عام</span></div>
+      <div class="cmd-item"><code>+privateall</code><span>كل الرومات خاصة</span></div>
+      <div class="cmd-item"><code>+publicall</code><span>كل الرومات عامة</span></div>
+      <div class="cmd-item"><code>+clear</code><span>حذف رسائل</span></div>
+      <div class="cmd-item"><code>+b</code><span>باند</span></div>
+      <div class="cmd-item"><code>+ub</code><span>فك باند</span></div>
+      <div class="cmd-item"><code>+bl</code><span>بلاك ليست</span></div>
+      <div class="cmd-item"><code>+ubl</code><span>إلغاء بلاك ليست</span></div>
+      <div class="cmd-item"><code>+promo</code><span>إرسال إعلان</span></div>
+      <div class="cmd-item"><code>+setname</code><span>تغيير اسم البوت</span></div>
+      <div class="cmd-item"><code>+updates</code><span>عرض التحديثات</span></div>
+      <div class="cmd-item"><code>+addupdate</code><span>إضافة تحديث</span></div>
+      <div class="cmd-item"><code>+servers</code><span>عرض السيرفرات</span></div>
+      <div class="cmd-item"><code>+stats</code><span>إحصائيات</span></div>
+      <div class="cmd-item"><code>+check</code><span>التحقق من اشتراك</span></div>
+      <div class="cmd-item"><code>+matches</code><span>مبارايات اليوم</span></div>
+      <div class="cmd-item"><code>+setmatchchannel</code><span>تعيين روم المبارايات</span></div>
+      <div class="cmd-item"><code>+help</code><span>المساعدة</span></div>
+      <div class="cmd-item"><code>+site</code><span>الموقع الرسمي</span></div>
+    </div>
   </div>
 </section>
 
-<!-- Updates -->
 <section class="updates" id="updates">
-  <h2 class="section-title">📋 التحديثات</h2>
-  <p class="section-sub">آخر التحديثات والإضافات للبوت</p>
-  <div class="updates-timeline" id="updatesList"></div>
+  <div class="container">
+    <h2 class="section-title">التحديثات</h2>
+    <p class="section-sub">آخر الإضافات للبوت</p>
+    <div class="updates-timeline" id="updatesList"></div>
+  </div>
 </section>
 
-<!-- Footer -->
 <footer>
-  <p>Annubis BroadCast © 2026 | مطور بواسطة <a href="https://discord.com/users/1060596734323851325" target="_blank">vuq2</a></p>
-  <p style="margin-top:8px; font-size:12px;">
-    <a href="https://discord.gg/7syKfqS6xr" target="_blank">سيرفر الدعم</a>
+  <p>ANNUBIS &copy; 2026 | مطور بواسطة <a href="https://discord.com/users/1060596734323851325" target="_blank">vuq2</a></p>
+  <p style="margin-top:6px; font-size:12px;">
+    <a href="https://discord.gg/7syKfqS6xr" target="_blank"><i class="fab fa-discord"></i> سيرفر الدعم</a>
   </p>
 </footer>
 
 <script>
-  // Particles
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
   document.getElementById('particles').appendChild(canvas);
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const particles = Array.from({length:80}, () => ({
-    x: Math.random()*canvas.width, y: Math.random()*canvas.height,
-    size: Math.random()*2+1, speedX: (Math.random()-0.5)*0.3, speedY: (Math.random()-0.5)*0.3,
-    opacity: Math.random()*0.5+0.1
+  let W = window.innerWidth, H = window.innerHeight;
+  canvas.width = W; canvas.height = H;
+  const particles = Array.from({length:45}, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    size: Math.random()*2+1, speedX: (Math.random()-0.5)*0.12, speedY: (Math.random()-0.5)*0.12,
+    opacity: Math.random()*0.2+0.03
   }));
   function drawParticles() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0,0,W,H);
     particles.forEach(p => {
       p.x += p.speedX; p.y += p.speedY;
-      if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
-      if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0;
+      if(p.y<0) p.y=H; if(p.y>H) p.y=0;
       ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-      ctx.fillStyle = `rgba(88,101,242,${p.opacity})`;
+      ctx.fillStyle = `rgba(156,163,175,${p.opacity})`;
       ctx.fill();
     });
     requestAnimationFrame(drawParticles);
   }
   drawParticles();
-  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+  window.addEventListener('resize', () => { W = window.innerWidth; H = window.innerHeight; canvas.width = W; canvas.height = H; });
 
-  // Load updates — auto from updates.json (GitHub Pages), fallback to local
+  function toggleCard(el) {
+    el.classList.toggle('active');
+  }
+
   function renderUpdates(data) {
     const container = document.getElementById('updatesList');
     container.innerHTML = '';
     for (let i = data.length - 1; i >= 0; i--) {
       const u = data[i];
-      container.innerHTML += '<div class="update-entry"><div class="num">#' + (data.length - i) + '</div><div class="body"><div class="date">' + u.date + '</div><div class="text">' + u.text + '</div></div>';
+      container.innerHTML += '<div class="update-entry"><div class="date">' + u.date + '</div><div class="text">' + u.text.replace(/\`([^\`]+)\`/g, '<code>$1</code>') + '</div></div>';
     }
   }
   const fallback = [
-    { date: '2026-07-02', text: '🔄 تغيير البريفيكس من ! إلى +' },
-    { date: '2026-07-02', text: '📋 إضافة نظام لوجات متكامل: حذف وتعديل الرسائل، الرتب، البان، الرومات، الفويس' },
-    { date: '2026-07-02', text: '🔒 إضافة أوامر التحكم بالرومات: +private, +public, +privateall, +publicall' },
-    { date: '2026-07-02', text: '📋 إضافة قسم التحديثات وأمر +updates و +addupdate' },
-    { date: '2026-07-02', text: '🔒 إضافة أوامر القفل والفتح: +lock, +unlock, +lockall, +unlockall' },
+    { date: '2026-07-02', text: 'إطلاق البوت وتغيير البريفيكس إلى +' },
+    { date: '2026-07-02', text: 'إضافة نظام تذاكر احترافي مع أزرار تفاعلية وحفظ المحادثات' },
+    { date: '2026-07-02', text: 'إضافة فلتر سب تلقائي مع إنذارات وبان وبلاك ليست تلقائي للأدمن' },
+    { date: '2026-07-02', text: 'إعادة تصميم واجهة البوت بالكامل: ردود عربية، بدون إيموجي' },
+    { date: '2026-07-02', text: 'إضافة أوامر القفل (+lock, +unlock, +lockall, +unlockall)' },
+    { date: '2026-07-02', text: 'إضافة أوامر الخصوصية (+private, +public, +privateall, +publicall)' },
+    { date: '2026-07-02', text: 'إضافة نظام بلاك ليست مع رول تلقائي ومنع كامل للوصول' },
+    { date: '2026-07-02', text: 'إضافة لوحة الإدارة (+admin) وأمر إعطاء الرتب (+r)' },
+    { date: '2026-07-02', text: 'إضافة أيقونة سريعة للتذاكر (+t) والبث الجماعي (+bc)' },
+    { date: '2026-07-02', text: 'إضافة نظام مبارايات كأس العالم (+matches, +setmatchchannel)' },
+    { date: '2026-07-02', text: 'إطلاق الموقع الرسمي بتصميم أنيق' },
   ];
   fetch('./updates.json').then(r => r.json()).then(data => { if (data.length) renderUpdates(data); else renderUpdates(fallback); }).catch(() => renderUpdates(fallback));
 </script>
